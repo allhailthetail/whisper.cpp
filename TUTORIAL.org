@@ -43,7 +43,7 @@ ffmpeg -i "$vid" \
     -acodec pcm_s16le \
     -ar 16000 \
     -ac 1 \
-    /tmp/extracted_audio.wav
+    -y /tmp/extracted_audio.wav
 #+end_src
 
 * Run Program:
