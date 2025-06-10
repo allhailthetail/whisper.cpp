@@ -1,0 +1,63 @@
+#+title: Whisper.cpp Tutorial
+
+* Clone and Install Deps:
+
+- You probably will want to run this manually in your terminal of choice...
+
+#+begin_src bash :results silent
+  # First, you'll need to clone this repo:
+  git clone https://github.com/allhailthetail/whisper.cpp.git .
+
+  # Install necessary dependencies,
+  #   May vary by your OS...
+  sudo pacman -S base-devel cmake ffmpeg
+#+end_src
+
+* Build whisper.cpp:
+
+- Runs make wiht however many processors you have
+
+#+begin_src bash :results silent
+make -j$(nproc)
+#+end_src
+
+* Download a ML model to use:
+
+- Download the most lightweight model for testing
+
+#+begin_src bash :results output
+wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin \
+    -O models/ggml-base.en.bin
+#+end_src
+
+#+RESULTS:
+* Extract Audio from Video:
+
+- Apparently, this port only works with a very specific type of audio file...
+
+#+begin_src bash :results silent
+vid="$HOME/Videos/test.mp4"
+
+ffmpeg -i $vid \
+    -vn \
+    -acodec pcm_s16le \
+    -ar 16000 \
+    -ac 1 \
+    /tmp/extracted_audio.wav
+#+end_src
+
+* Run Program:
+
+- Evaluates the extracted .wav file and run it against the pre-trained model
+
+#+begin_src bash :results file :file extracted_text.txt
+# define number of cores you'd like to devote to this cause:
+num_cores=4
+
+./build/bin/whisper-cli -f \
+    /tmp/extracted_audio.wav \
+    -t $num_cores
+#+end_src
+
+#+RESULTS:
+[[file:extracted_text.txt]]

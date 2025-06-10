@@ -1,3 +1,8 @@
+# Tutorial Specific:
+*ggml-base.en.bin
+*extracted_text.txt
+
+# Default GitHub Stuff:
 *.o
 *.a
 *.d
