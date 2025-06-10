@@ -38,7 +38,7 @@ wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin 
 #+begin_src bash :results silent
 vid="$HOME/Videos/test.mp4"
 
-ffmpeg -i $vid \
+ffmpeg -i "$vid" \
     -vn \
     -acodec pcm_s16le \
     -ar 16000 \
